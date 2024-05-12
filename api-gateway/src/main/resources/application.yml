@@ -1,0 +1,37 @@
+#  The port number (8080) on which the API gateway will listen for incoming requests.
+server:
+  port: 8080
+
+#  The name of the Spring Boot application.
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      mvc:
+#   Enables discovery-based routing. When enabled, Spring Cloud Gateway will automatically discover
+#   routes for registered services using service discovery
+        discovery:
+          locator:
+            enabled: true
+#   Defining the routing rules for accessing microservices
+        routes:
+          - id: category-service
+            uri: lb://CATEGORY-SERVICE
+            predicates:
+              - Path=/category-service/**
+            filters:
+              - StripPrefix=1
+
+          - id: expense-service
+            uri: lb://EXPENSE-SERVICE
+            predicates:
+              - Path=/expense-service/**
+            filters:
+              - StripPrefix=1
+
+#   The URL of the Eureka Server where the API gateway will register itself and discover other services.
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

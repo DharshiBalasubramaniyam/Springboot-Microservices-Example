@@ -1,0 +1,21 @@
+spring:
+#    This name is used for identifying the application in the environment
+    application:
+        name: category-service
+#    MongoDB database configuration.
+#    Make sure you have created the database, before running the application
+    data:
+        mongodb:
+            host: 127.0.0.1
+            port: 27017
+            database: category_service
+
+#    The port on which the Spring Boot application will listen for incoming HTTP requests
+server:
+    port: 9000
+
+#    The URL of the Eureka Server where the application will register itself for service discovery.
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
